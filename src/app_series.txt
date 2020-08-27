@@ -1,0 +1,63 @@
+app 3:-------------------------------------------------------------------------------------------------
+creating and communicating between components
+input output & template variables: #templatevariables
+styles encapsulation.
+added header.
+
+app_4:-------------------------------------------------------------------------------------------------
+interpolation and expressions
+event binding and statements
+ngfor directive
+removing elements with ngif ngswitch *ngIf="event?.location"
+hiding elements
+adding removing styles and classes.
+safe navigation operator event?.name for handling null values.
+ngClass="{class:expresion}"
+
+app_5-------------------------------------------------------------------------------------------------
+Services @Injectable()
+common liberaries third party Services
+include toastr in script inside angular.json file.
+
+app_6-------------------------------------------------------------------------------------------------
+adding <router-outlet> in main app section(any section where route components are loaded)
+create route file export const approutes:Routes = [{path, component, redirectTo, pathMatch, canactvate, candeactivate}]
+associate route with appmodule in import section RouterModule.forRoot(app_routes)
+Adding anchor links <a [routerLink]="['/events',event.id]" routerLinkActive="router-link-active">
+programatically routing: this.router.navigate(["./events"]);
+accessing params: +this.route.snapshot.params["id"]; route:ActivatedRoute
+Route Guards Services: export class EventDetailGuardService implements CanActivate returns boolean 
+
+RouteGuard Function for candeactivate: associate guardFunction in provider as {provide: 'candeactivateGard', useValue: CheckDirty}
+export function checkDirty(comp:CurrentGuardComponent){ return}
+if (comp.isFormDirty) {
+    return window.confirm("Changes made, do you still want to exit?");
+  }
+  return true;
+
+making eventService getEvents Asynch using Subject Rxjs Obsevable
+let subject = new Subject();
+setTimeout(p=> { subject.next(EVENTS); subject.complete() }, 1000)
+return subject; // return observable or promise;
+
+Resolve: fetching data into any object accessible through ActivatedRoute.snapshot.data['object']
+resolve: {obj: ResolverService}
+ResolverService implements  Resolve<any>
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return this.eventService.getEvents().pipe(
+      map((events) => {
+        return events;
+      })
+    );
+  }
+
+in component access resolved variables as ActivatedRoute.snapshot.data['obj']
+
+Lazy Loading routes:
+create module, imports: commonModule, RouterModule.forChild(childRoutes)
+create component
+main routes {path:'child', loadChildren: './path/for/child/module#ModuleName'}
+<routeLink = "['user/profile']">
+
+app_7-------------------------------------------------------------------------------------------------
+Angular Forms
